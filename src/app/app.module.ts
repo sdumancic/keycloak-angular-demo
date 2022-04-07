@@ -4,14 +4,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
+import {HttpClientModule} from "@angular/common/http";
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
       config: {
-        url: 'http://localhost:8080/auth',
-        realm: 'efd',
+        url: 'http://localhost:8080/auth', //'https://141.144.241.175'
+        realm: 'efd',// 'quarkus'
         clientId: 'angular-webapp',
       },
       initOptions: {
@@ -29,7 +30,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    HttpClientModule
   ],
   providers: [
     {

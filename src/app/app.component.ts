@@ -18,15 +18,13 @@ export class AppComponent implements OnInit {
 
   public async ngOnInit() {
 
-    setInterval(() => {
-      this.seconds --;},1000)
+
     this.isLoggedIn = await this.keycloak.isLoggedIn();
     this.keycloak.keycloakEvents$.subscribe(val => {
       if (val.type === KeycloakEventType.OnTokenExpired){
         console.log('token expired');
-        this.keycloak.isLoggedIn().then(val => console.log('is logged in', val));
-        this.keycloak.updateToken();
-        this.keycloak.getToken().then(token => this.token = token);
+        //this.keycloak.updateToken();
+        //this.keycloak.getToken().then(token => this.token = token);
         this.seconds = 60;
       }
 
@@ -43,6 +41,6 @@ export class AppComponent implements OnInit {
   }
 
   public logout() {
-    this.keycloak.logout();
+    this.keycloak.logout("http://localhost:4200");
   }
 }
